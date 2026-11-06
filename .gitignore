@@ -132,6 +132,11 @@ venv.bak/
 .spyderproject
 .spyproject
 
+# draw.io
+*.drawio
+*.bkp
+.$*
+
 # Rope project settings
 .ropeproject
 
