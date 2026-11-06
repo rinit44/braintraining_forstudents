@@ -1,0 +1,38 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="mld" name="MLD">
+    <mxGraphModel dx="1000" dy="600" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="400" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="user" value="users" style="swimlane;fontStyle=1;align=center;startSize=30;html=1;rounded=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="40" y="80" width="200" height="130" as="geometry"/>
+        </mxCell>
+        <mxCell id="user_attr" value="&lt;u&gt;&lt;b&gt;id&lt;/b&gt;&lt;/u&gt; (PK)&lt;br&gt;username (unique)&lt;br&gt;password_hash&lt;br&gt;level" style="text;html=1;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;whiteSpace=wrap;" vertex="1" parent="user">
+          <mxGeometry y="30" width="200" height="100" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="result" value="results" style="swimlane;fontStyle=1;align=center;startSize=30;html=1;rounded=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="380" y="80" width="220" height="190" as="geometry"/>
+        </mxCell>
+        <mxCell id="result_attr" value="&lt;u&gt;&lt;b&gt;id&lt;/b&gt;&lt;/u&gt; (PK)&lt;br&gt;date_hour&lt;br&gt;duration&lt;br&gt;nb_trials&lt;br&gt;nb_ok&lt;br&gt;#user_id (FK)&lt;br&gt;#exercise_id (FK)" style="text;html=1;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;whiteSpace=wrap;" vertex="1" parent="result">
+          <mxGeometry y="30" width="220" height="160" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="exercise" value="exercises" style="swimlane;fontStyle=1;align=center;startSize=30;html=1;rounded=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="740" y="80" width="200" height="110" as="geometry"/>
+        </mxCell>
+        <mxCell id="exercise_attr" value="&lt;u&gt;&lt;b&gt;id&lt;/b&gt;&lt;/u&gt; (PK)&lt;br&gt;code (unique)&lt;br&gt;name" style="text;html=1;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;whiteSpace=wrap;" vertex="1" parent="exercise">
+          <mxGeometry y="30" width="200" height="80" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="fk1" style="endArrow=block;endFill=1;html=1;exitX=0;exitY=0.5;entryX=1;entryY=0.5;" edge="1" parent="1" source="result" target="user">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="fk2" style="endArrow=block;endFill=1;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="result" target="exercise">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
