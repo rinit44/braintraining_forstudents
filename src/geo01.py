@@ -3,6 +3,7 @@
 # PRO DB PY
 
 import tkinter as tk
+from tkinter import messagebox
 import random
 from math import sqrt
 import time
@@ -88,8 +89,36 @@ def next_point(event):
 
 
 def save_game(event):
-    # TODO
-    print("dans save")
+    global nbtrials, nbsuccess, start_date, entry_pseudo
+
+    # 1. Vérification du pseudo
+    student_pseudo = entry_pseudo.get().strip()
+    if not student_pseudo:
+        messagebox.showwarning("Pseudo manquant", "Veuillez entrer un pseudo avant d'enregistrer.")
+        return
+
+    # 2. Vérification qu'au moins un essai a été réalisé
+    if nbtrials == 0:
+        messagebox.showwarning("Aucun essai", "Veuillez faire au moins un essai avant d'enregistrer.")
+        return
+
+    # 3. Calcul de la durée en secondes entières
+    duration = datetime.datetime.now() - start_date
+    duration_s = int(duration.total_seconds())
+
+    # 4. Enregistrement dans la base de données de Rinit
+    try:
+        database.insert_result(student_pseudo, exercise, duration_s, nbtrials, nbsuccess)
+        messagebox.showinfo(
+            "Résultat enregistré",
+            f"Bravo {student_pseudo} !\n\nScore : {nbsuccess}/{nbtrials}\nDurée : {duration_s} secondes"
+        )
+        window_geo01.destroy()
+    except Exception as err:
+        messagebox.showerror(
+            "Erreur d'enregistrement",
+            f"Impossible d'enregistrer le résultat dans la base de données :\n{err}"
+        )
 
 
 def display_timer():
@@ -102,7 +131,9 @@ def display_timer():
 
 def open_window_geo_01(window):
     # window = tk.Tk()
-    global window_geo01, hex_color, lbl_title, lbl_duration, lbl_result, lbl_target, canvas, start_date
+    global window_geo01, hex_color, lbl_title, lbl_duration, lbl_result, lbl_target, canvas, start_date, entry_pseudo, nbtrials, nbsuccess
+    nbtrials = 0
+    nbsuccess = 0
     window_geo01 = tk.Toplevel(window)
 
     window_geo01.title("Exercice de géométrie")

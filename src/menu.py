@@ -5,6 +5,7 @@
 #############################
 
 import tkinter as tk
+import os
 import geo01
 import info02
 import info05
@@ -48,7 +49,15 @@ for ex in range(len(a_exercise)):
     a_title[ex]=tk.Label(window, text=a_exercise[ex], font=("Arial", 15))
     a_title[ex].grid(row=1+2*(ex//3),column=ex % 3 , padx=40,pady=10) # 3 label per row
 
-    a_image[ex] = tk.PhotoImage(file="img/" + a_exercise[ex] + ".gif") # image name
+    gif_name = a_exercise[ex] + ".gif"
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    img_candidates = [
+        os.path.join(base_dir, "..", "img", gif_name),
+        os.path.join(base_dir, "img", gif_name),
+        os.path.join("img", gif_name),
+    ]
+    img_path = next((p for p in img_candidates if os.path.exists(p)), img_candidates[0])
+    a_image[ex] = tk.PhotoImage(file=img_path) # image name
     albl_image[ex] = tk.Label(window, image=a_image[ex]) # put image on label
     albl_image[ex].grid(row=2 + 2*(ex // 3), column=ex % 3, padx=40, pady=10) # 3 label per row
     albl_image[ex].bind("<Button-1>", lambda event, ex = ex :exercise(event=None, exer=a_exercise[ex])) #link to others .py

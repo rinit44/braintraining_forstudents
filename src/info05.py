@@ -191,8 +191,36 @@ def sl_v(event):
 
 
 def save_game(event):
-    print("dans save")
-    #TODO
+    global nbtrials, nbsuccess, start_date, entry_pseudo
+
+    # 1. Vérification du pseudo
+    student_pseudo = entry_pseudo.get().strip()
+    if not student_pseudo:
+        showwarning("Pseudo manquant", "Veuillez entrer un pseudo avant d'enregistrer.")
+        return
+
+    # 2. Vérification qu'au moins un essai a été réalisé
+    if nbtrials == 0:
+        showwarning("Aucun essai", "Veuillez faire au moins un essai avant d'enregistrer.")
+        return
+
+    # 3. Calcul de la durée en secondes entières
+    duration = datetime.datetime.now() - start_date
+    duration_s = int(duration.total_seconds())
+
+    # 4. Enregistrement dans la base de données de Rinit
+    try:
+        database.insert_result(student_pseudo, exercise, duration_s, nbtrials, nbsuccess)
+        showinfo(
+            "Résultat enregistré",
+            f"Bravo {student_pseudo} !\n\nScore : {nbsuccess}/{nbtrials}\nDurée : {duration_s} secondes"
+        )
+        window_info05.destroy()
+    except Exception as err:
+        showerror(
+            "Erreur d'enregistrement",
+            f"Impossible d'enregistrer le résultat dans la base de données :\n{err}"
+        )
 
 
 def display_timer():
@@ -204,7 +232,9 @@ def display_timer():
 
 
 def open_window_info_05(window):
-    global window_info05, lbl_duration, lbl_result, hex_color, start_date, slider_r, slider_g, slider_b, slider_v, entry_response, canvas
+    global window_info05, lbl_duration, lbl_result, hex_color, start_date, slider_r, slider_g, slider_b, slider_v, entry_response, canvas, entry_pseudo, nbtrials, nbsuccess
+    nbtrials = 0
+    nbsuccess = 0
     window_info05 = tk.Toplevel(window)
     window_info05.title("La couleur perdue")
     window_info05.geometry("1100x900")
