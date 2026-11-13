@@ -136,8 +136,8 @@ venv.bak/
 *.drawio
 *.bkp
 .$*
-.bak
-.mwb
+*.bak
+*.mwb
 
 # Rope project settings
 .ropeproject
