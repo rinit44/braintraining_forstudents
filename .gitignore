@@ -132,10 +132,12 @@ venv.bak/
 .spyderproject
 .spyproject
 
-# draw.io
+# draw.io and my sql workbench
 *.drawio
 *.bkp
 .$*
+.bak
+.mwb
 
 # Rope project settings
 .ropeproject
